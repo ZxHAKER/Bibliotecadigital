@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Biblioteca Digital del Chocó</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700&family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Bricolage+Grotesque:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f8f3;--card:#fff;--ink:#12302a;--mut:#4b645d;--g:#0f6b4f;--y:#f2b705;--r:#d6344a;--b:#1b7f9e;--line:#cfe0d6;--hero:#0c4a38;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1d18;--card:#15302a;--ink:#e8f3ee;--mut:#9fbdb2;--g:#4fd1a0;--line:#274a40;--hero:#06241b}}
+:root[data-theme="dark"]{--bg:#0d1d18;--card:#15302a;--ink:#e8f3ee;--mut:#9fbdb2;--g:#4fd1a0;--line:#274a40;--hero:#06241b}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 Nunito,system-ui,sans-serif}
+h1,h2,h3{font-family:"Baloo 2",system-ui,sans-serif;line-height:1.15;margin:0 0 .5rem}
+a{color:var(--b)}
+.hero{background:var(--hero);color:#fff;padding:3rem 1.2rem 2.5rem;text-align:center;border-bottom:8px solid var(--y)}
+.hero h1{font-size:clamp(2.2rem,7vw,4rem);font-weight:800}
+.hero p{max-width:60ch;margin:.6rem auto}
+.credit{display:inline-block;background:rgba(255,255,255,.12);border:2px dashed var(--y);border-radius:14px;padding:.8rem 1.1rem;margin-top:1rem;max-width:62ch}
+.credit b{color:var(--y)}
+nav{display:flex;gap:.4rem;overflow-x:auto;padding:.7rem 1rem;background:var(--card);border-bottom:1px solid var(--line)}
+nav a{white-space:nowrap;text-decoration:none;font-weight:700;font-size:.85rem;padding:.35rem .7rem;border-radius:99px;background:var(--bg);color:var(--ink);border:1px solid var(--line)}
+nav a:hover,nav a:focus-visible{background:var(--y);color:#12302a;outline:none}
+main{max-width:980px;margin:0 auto;padding:1rem}
+section{padding:1.6rem 0;border-bottom:1px solid var(--line)}
+section>h2{font-size:1.9rem;color:var(--g)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.9rem}
+.c{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--y);border-radius:12px;padding:.9rem 1rem}
+.c:nth-child(3n+2){border-left-color:var(--r)}.c:nth-child(3n){border-left-color:var(--b)}
+.c h3{font-size:1.15rem}.c p{margin:.2rem 0;color:var(--mut);font-size:.95rem}
+.tag{display:inline-block;font-size:.75rem;font-weight:700;background:var(--y);color:#12302a;border-radius:6px;padding:0 .45rem}
+.stat{font:800 2rem "Baloo 2";color:var(--r)}
+.proto{display:flex;flex-wrap:wrap;gap:.6rem;list-style:none;padding:0}
+.proto li{background:var(--card);border:2px solid var(--g);border-radius:99px;padding:.3rem .9rem;font-weight:700}
+.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.7rem}
+.ph{aspect-ratio:4/3;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:700;text-align:center;padding:.4rem;font-size:.9rem}
+.ph span{font-size:2.4rem}
+button{font:700 1rem Nunito,sans-serif;cursor:pointer;border:0;border-radius:10px;padding:.6rem 1rem;background:var(--g);color:#fff}
+:root:not([data-theme="light"]) button{color:#06241b}
+button:focus-visible,.mc:focus-visible{outline:3px solid var(--y);outline-offset:2px}
+.game{background:var(--card);border:3px solid var(--g);border-radius:18px;padding:1rem;margin:1rem 0}
+.opts{display:grid;gap:.5rem;margin:.7rem 0}
+.opts button{background:var(--bg);color:var(--ink);border:2px solid var(--line);text-align:left}
+.opts button.ok{background:#2e9e6a;color:#fff;border-color:#2e9e6a}.opts button.no{background:var(--r);color:#fff;border-color:var(--r)}
+.mem{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;max-width:460px}
+.mc{aspect-ratio:1;border:0;border-radius:12px;background:var(--b);color:transparent;font-size:1.5rem;padding:.2rem;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.1}
+.mc.up{background:var(--bg);color:var(--ink);border:2px solid var(--y)}.mc.done{background:#2e9e6a;color:#fff}
+.mc small{font-size:.7rem;font-weight:700}
+.pads{display:flex;gap:.6rem;flex-wrap:wrap}.pads button{width:96px;height:96px;border-radius:50%;font-size:2rem;color:#fff!important}
+.fb{font-weight:700;min-height:1.6em}
+.idx{background:var(--card);border:3px solid var(--y);border-radius:18px;padding:1rem 1.2rem;margin:1rem 0}.idx ol{columns:2 260px;margin:.4rem 0 0;padding-left:1.6rem}.idx li{margin:.25rem 0;break-inside:avoid}.idx a{font-weight:700;text-decoration:none}.idx a:hover{text-decoration:underline}
+.keys{display:flex;flex-wrap:wrap;gap:.3rem;margin:.5rem 0}.keys button{padding:.4rem .6rem;min-width:2.2rem}.keys button:disabled{opacity:.35}input.tx{font:inherit;padding:.5rem;border-radius:8px;border:2px solid var(--line);background:var(--bg);color:var(--ink);text-transform:uppercase}.gal img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;display:block}.ph a{color:#fff;font-size:.75rem;font-weight:400}
+footer{background:var(--hero);color:#fff;padding:1.5rem 1rem;text-align:center;font-size:.9rem}
+ol.ref{padding-left:1.2rem;font-size:.88rem;color:var(--mut)}ol.ref li{margin-bottom:.35rem;word-break:break-word}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+/* ===== Betas ===== */
+.hero{border-bottom:0;padding:2.5rem 1.2rem}.hero-in{max-width:1080px;margin:0 auto;display:grid;gap:1.6rem;align-items:center}
+.emo{font-size:2.6rem}.hc{display:grid;grid-template-columns:1.2fr 1fr;grid-template-rows:1fr 1fr;gap:.6rem;height:300px}
+.hc img{width:100%;height:100%;object-fit:cover;border-radius:16px;display:block}.hc img:first-child{grid-row:span 2}
+.cta{display:inline-block;margin:.3rem .3rem 0 0;padding:.65rem 1.1rem;border-radius:99px;background:var(--y);color:#12302a;font-weight:800;text-decoration:none}.cta.alt{background:transparent;color:inherit;border:2px solid currentColor}
+.evg{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));grid-auto-flow:dense;gap:.7rem}
+.evg figure{margin:0;position:relative;border-radius:16px;overflow:hidden;cursor:zoom-in;aspect-ratio:3/4;background:var(--line)}
+.evg figure.big{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
+.evg img{width:100%;height:100%;object-fit:cover;display:block}
+.evg figcaption{position:absolute;inset:auto 0 0;padding:1.6rem .7rem .6rem;color:#fff;font-size:.82rem;font-weight:700;line-height:1.25;background:linear-gradient(transparent,rgba(0,0,0,.78))}
+.evg figure:focus-visible{outline:3px solid var(--y);outline-offset:2px}
+dialog#lb{border:0;border-radius:18px;padding:.8rem;max-width:min(92vw,560px);background:var(--card);color:var(--ink)}dialog#lb::backdrop{background:rgba(0,0,0,.75)}
+dialog#lb img{width:100%;max-height:72vh;object-fit:contain;border-radius:12px}dialog#lb p{margin:.5rem 0;font-weight:700}
+.beta{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(.7rem + env(safe-area-inset-bottom,0px));z-index:20;display:flex;gap:.2rem;padding:.25rem;border-radius:99px;background:#0b1a15;box-shadow:0 6px 22px rgba(0,0,0,.35);max-width:96vw}
+.beta button{background:transparent;color:#cfe7dc!important;padding:.45rem .8rem;border-radius:99px;font-size:.82rem;white-space:nowrap}.beta button[aria-pressed=true]{background:#f2b705;color:#12302a!important}
+body{padding-bottom:4.5rem}
+@media(min-width:820px){.hero-in{grid-template-columns:1.1fr 1fr}.hc{height:380px}.evg{grid-template-columns:repeat(4,1fr)}}
+/* Beta 1 · Selva: claro, vivo, tarjetas con color */
+html[data-beta="1"]{--bg:#f2f8f3;--card:#fff;--ink:#12302a;--mut:#4b645d;--g:#0f6b4f;--line:#cfe0d6;--hero:#0c4a38}
+html[data-beta="1"] .hero{text-align:left}html[data-beta="1"] .credit{border-radius:14px}
+html[data-beta="1"] button{color:#fff}
+/* Beta 2 · Noche: oscuro, tipografía grande, brillo verde */
+html[data-beta="2"]{--bg:#07140f;--card:#0f2a22;--ink:#e8f3ee;--mut:#9fbdb2;--g:#4fd1a0;--line:#21443a;--hero:#041a13;--y:#ffc933}
+html[data-beta="2"] h1,html[data-beta="2"] h2,html[data-beta="2"] h3{font-family:"Bricolage Grotesque","Baloo 2",sans-serif;letter-spacing:-.02em}
+html[data-beta="2"] .hero{background:radial-gradient(900px 400px at 85% 0,#0e5a41,transparent 70%),#041a13}
+html[data-beta="2"] .hero h1{font-size:clamp(2.4rem,8vw,4.6rem);font-weight:800}
+html[data-beta="2"] button{color:#06241b}html[data-beta="2"] a{color:#6fd3f0}
+html[data-beta="2"] .c,html[data-beta="2"] .game,html[data-beta="2"] .idx{box-shadow:0 0 0 1px var(--line),0 10px 30px rgba(0,0,0,.35)}
+html[data-beta="2"] .hc img{border-radius:22px}
+/* Beta 3 · Arena: cálido, editorial con serifa */
+html[data-beta="3"]{--bg:#f7efe0;--card:#fffaf0;--ink:#2a2118;--mut:#6a5a46;--g:#8a3b12;--line:#e2d3b8;--hero:#1f4d3a;--y:#e9a820;--r:#b3261e;--b:#1d6a8a}
+html[data-beta="3"] h1,html[data-beta="3"] h2,html[data-beta="3"] h3{font-family:Fraunces,Georgia,serif;font-weight:800}
+html[data-beta="3"] body,html[data-beta="3"]{font-family:Nunito,system-ui,sans-serif}
+html[data-beta="3"] .hero{border-bottom:10px solid var(--y)}
+html[data-beta="3"] .hc img:first-child{border-radius:999px 999px 16px 16px}
+html[data-beta="3"] .c,html[data-beta="3"] .game,html[data-beta="3"] .idx{border-radius:6px}
+html[data-beta="3"] button{color:#fff}html[data-beta="3"] section>h2{font-size:2.1rem}
+html[data-beta="3"] .evg figure{border-radius:4px}
+.hero-in.solo{grid-template-columns:1fr!important;max-width:820px}.hero-in.solo .ht{text-align:center}
+</style>
+</head>
+<body>
+<header class="hero"><div class="hero-in solo"><div class="ht">
+  <div class="emo" aria-hidden="true">🌿🥁🛶</div>
+  <h1>Biblioteca Digital del Chocó</h1>
+  <p>Un lugar para conocer la voz, la música, los libros y las personas del Chocó, y para entender por qué sus derechos importan. ¡Lee, escucha y juega!</p>
+  <div class="credit"><b>Seminario de Interculturalidad y Derechos Humanos 2026</b><br>Creado por Camila Mongui, Valentina Núñez, Laura Ríos y Emily Zuluaga<br><small>Colegio El Minuto de Dios – Calle 80 · Docente: Sandra Bermúdez</small></div>
+  <p><a class="cta" href="#indice">Empezar a explorar</a> <a class="cta alt" href="#juegos">Ir a los juegos</a> <a class="cta alt" href="index.html">Volver a las fotos</a></p></div></div></header>
+<nav aria-label="Secciones">
+<a href="#s1">Proyecto</a><a href="#s2">¿Por qué?</a><a href="#s3">Objetivos</a><a href="#s4">Prototipo</a><a href="#s5">Meta</a><a href="#s6">Investigación</a><a href="#s7">Autores</a><a href="#s9">Microrelatos</a><a href="#s10">Instituciones</a><a href="#s11">Artistas</a><a href="#s12">Periódicos</a><a href="#s13">Sonidos</a><a href="#podcasts">🎧 Podcasts</a><a href="#s14">Festivales</a><a href="#s15">Galería</a><a href="#juegos">🎮 Juegos</a><a href="#s16">Explorar</a><a href="#s17">Referencias</a>
+</nav>
+<main>
+<div class="idx" id="indice"><h2>📖 Índice</h2><p style="margin:0;color:var(--mut)">Toca un tema para ir directo a él.</p><ol>
+<li><a href="#s1">Acerca del proyecto</a></li><li><a href="#s2">¿Por qué investigamos esta problemática en esta zona?</a></li><li><a href="#s3">Objetivos para nuestro público objetivo</a></li><li><a href="#s4">Prototipo del proyecto</a></li><li><a href="#s5">¿Qué queremos lograr con esto?</a></li><li><a href="#s6">Documentos de investigación (tesis y otros)</a></li><li><a href="#s7">Autores chocoanos</a></li><li><a href="#s8">Libros de estos autores</a></li><li><a href="#s9">Microrelatos</a></li><li><a href="#s10">Instituciones y fundaciones</a></li><li><a href="#s11">Artistas y obras</a></li><li><a href="#s12">Periódicos de la zona</a></li><li><a href="#s13">Archivos sonoros y podcasts</a></li><li><a href="#s14">Muestras culturales, festivales y más</a></li><li><a href="#s15">Galería de fotos de muestras culturales</a></li><li><a href="#s16">Páginas para explorar más</a></li><li><a href="#s17">Referencias</a></li><li><a href="#juegos">🎮 Zona de juegos</a></li></ol></div>
+
+<section id="s1"><h2>1. Acerca del proyecto</h2>
+<p>Esta biblioteca nace de la investigación <b>«Pobreza estructural y estrategias de desarrollo en el Chocó»</b>. El Chocó, en el Pacífico colombiano, tiene una riqueza enorme de naturaleza, música y cultura afrodescendiente e indígena, pero también ha sido olvidado por el Estado. Aquí reunimos su cultura para que los estudiantes de grados octavo y noveno la conozcan, la valoren y se hagan preguntas sobre la desigualdad.</p></section>
+
+<section id="s2"><h2>2. ¿Por qué investigamos esta problemática en esta zona?</h2>
+<div class="grid">
+<div class="c"><div class="stat">68,4%</div><p>de la población estaba en pobreza monetaria en 2019 (Chocó 7 días).</p></div>
+<div class="c"><div class="stat">38,8%</div><p>vivía en pobreza extrema, la cifra más alta del país.</p></div>
+<div class="c"><div class="stat">79,2%</div><p>tenía necesidades básicas insatisfechas, frente al 27,8% nacional (Proclade Colven).</p></div></div>
+<p>Es una contradicción: uno de los lugares con más biodiversidad y cultura de Colombia es también de los más pobres. Las causas son el abandono estatal, el conflicto armado, la corrupción, la falta de vías y la discriminación histórica.</p></section>
+
+<section id="s3"><h2>3. Objetivos para nuestro público objetivo</h2>
+<div class="grid">
+<div class="c"><h3>Conocer</h3><p>Descubrir autores, artistas y fiestas del Chocó.</p></div>
+<div class="c"><h3>Entender</h3><p>Comprender por qué hay pobreza estructural y cómo afecta los derechos.</p></div>
+<div class="c"><h3>Cuestionarse</h3><p>Pensar de forma crítica sobre la desigualdad en Colombia.</p></div>
+<div class="c"><h3>Valorar</h3><p>Respetar la diversidad afro e indígena como parte de nuestra identidad.</p></div></div></section>
+
+<section id="s4"><h2>4. Prototipo del proyecto</h2>
+<p>Esta página es el prototipo: una biblioteca digital con colecciones de lectura, sonido e imágenes, más juegos para aprender.</p>
+<ul class="proto"><li>📚 Libros</li><li>🔊 Sonidos</li><li>🖼️ Galería</li><li>🎮 Juegos</li><li>🔗 Enlaces</li></ul></section>
+
+<section id="s5"><h2>5. ¿Qué queremos lograr con esto?</h2>
+<p>Generar conciencia sobre las causas de la pobreza en el Chocó y que los estudiantes relacionen problemas y soluciones, comprendan la realidad social del país y se motiven a transformarla desde su colegio.</p></section>
+
+<section id="s6"><h2>6. Documentos de investigación (tesis y otros)</h2>
+<div class="grid">
+<div class="c"><h3>Factores de pobreza y desigualdad en el Chocó</h3><p>Márquez Mejía (2018). Libertadores.</p><a href="https://repository.libertadores.edu.co/items/6e3b2ab0-e86b-4064-8305-cbb87830873d">Leer</a></div>
+<div class="c"><h3>Injusticias sociales y territoriales en el Chocó</h3><p>Otálvaro-Marín et al. (2017). Revista Prospectiva.</p><a href="https://revistaprospectiva.univalle.edu.co/index.php/prospectiva/article/view/12476">Leer</a></div>
+<div class="c"><h3>La persistencia del desempleo en el Chocó</h3><p>Astorquiza (2025). U. de Manizales.</p><a href="https://www.umanizales.edu.co/umedia/analisis-la-persistencia-del-desempleo-en-choco-colombia-bilver-astorquiza">Leer</a></div>
+<div class="c"><h3>Diagnóstico de salud pública en el Chocó</h3><p>Pérez Rodríguez et al. (2014). UNAD.</p><a href="https://repository.unad.edu.co/handle/10596/68125">Leer</a></div>
+<div class="c"><h3>La pobreza ignorada</h3><p>Chaves Rincón (2019). Tesis, Javeriana.</p><a href="https://repository.javeriana.edu.co/handle/10554/50422">Leer</a></div>
+<div class="c"><h3>Ley 70 de 1993</h3><p>Derechos territoriales afrocolombianos.</p><a href="https://www.derechosambientales.org/la-ley-70-de-1993-y-los-derechos-territoriales-afrocolombianos/">Leer</a></div></div></section>
+
+<section id="s7"><h2>7. Autores chocoanos</h2>
+<div class="grid">
+<div class="c"><span class="tag">Novelista</span><h3>Arnoldo Palacios</h3><p>Escritor chocoano que contó la vida de los barrios pobres de Quibdó.</p></div>
+<div class="c"><span class="tag">Antropólogo y escritor</span><h3>Rogerio Velásquez</h3><p>Investigó y narró la cultura afro del Pacífico.</p></div>
+<div class="c"><span class="tag">Poeta</span><h3>Carlos Arturo Truque</h3><p>Poeta que cantó al Pacífico y a su gente.</p></div></div>
+<h2 id="s8" style="margin-top:1.4rem;font-size:1.9rem;color:var(--g)">8. Libros de estos autores</h2>
+<div class="grid">
+<div class="c"><h3>Las estrellas son negras</h3><p>Arnoldo Palacios. Novela sobre el hambre y la esperanza en el Chocó (1949).</p></div>
+<div class="c"><h3>Memorias del odio</h3><p>Rogerio Velásquez. Novela de la tradición afro del Pacífico.</p></div>
+<div class="c"><h3>Andariegas y luchadoras</h3><p>Soler-Castillo y Mena. Narrativas de resistencia de lideresas del Chocó.</p></div>
+<div class="c"><h3>¿Por qué es pobre el Chocó?</h3><p>Bonet-Morón (2007). Banco de la República.</p></div></div></section>
+
+<section id="s9"><h2>9. Microrelatos</h2>
+<p>Microrelatos originales del equipo, inspirados en el Chocó. ¡Haz clic para leerlos!</p>
+<div class="grid" id="micro"></div></section>
+
+<section id="s10"><h2>10. Instituciones y fundaciones</h2>
+<div class="grid">
+<div class="c"><h3>COCOMACIA</h3><p>Organización de comunidades negras del Atrato que defiende el territorio colectivo.</p></div>
+<div class="c"><h3>OREWA</h3><p>Organización Regional Embera Wounaan. Defiende los derechos de los pueblos indígenas.</p></div>
+<div class="c"><h3>Universidad Tecnológica del Chocó</h3><p>Universidad pública de Quibdó.</p></div>
+<div class="c"><h3>Proclade Colven</h3><p>Organización que trabaja por poner fin a la pobreza en el Chocó (ODS 1).</p></div></div></section>
+
+<section id="s11"><h2>11. Artistas y obras</h2>
+<div class="grid">
+<div class="c"><span class="tag">Música</span><h3>ChocQuibTown</h3><p>Grupo de Quibdó que mezcla hip hop con ritmos del Pacífico.</p></div>
+<div class="c"><span class="tag">Música</span><h3>Jairo Varela y Grupo Niche</h3><p>Jairo Varela nació en Quibdó. Su obra más conocida es «Cali pachanguero».</p></div>
+<div class="c"><span class="tag">Artesanía</span><h3>Cestería de werregue</h3><p>Arte del pueblo Wounaan: canastos tejidos con fibra de palma.</p></div></div></section>
+
+<section id="s12"><h2>12. Periódicos de la zona</h2>
+<div class="grid">
+<div class="c"><h3>Chocó 7 días</h3><p>Medio regional que publica noticias y cifras del departamento.</p></div>
+<div class="c"><h3>El Tiempo</h3><p>Ha informado sobre el conflicto y el hambre en comunidades chocoanas.</p></div>
+<div class="c"><h3>Portafolio y La República</h3><p>Reportan datos económicos y de pobreza del Chocó.</p></div>
+<div class="c"><h3>Noticias del Chocó (RCN)</h3><p>Noticias actuales del departamento.</p><a href="https://www.noticiasrcn.com/temas/choco">Ver noticias</a></div>
+<div class="c"><h3>ABC, el periódico histórico</h3><p>Circuló más de 30 años en Quibdó. Conoce la historia de la prensa chocoana.</p><a href="https://revistas.uniclaretiana.edu.co/index.php/Memorias/article/download/213/163/313">Leer</a></div></div></section>
+
+<section id="s13"><h2>13. Archivos sonoros</h2>
+<p>La música del Pacífico se toca con tambores, cununos y marimba. Los géneros más conocidos son el currulao, el alabao y la chirimía. Prueba los tambores:</p>
+<div class="game"><div class="pads" id="pads"></div><p class="fb">Toca los tambores y crea tu ritmo.</p></div>
+<h3 id="podcasts" style="margin-top:1rem">🎧 Podcasts y lecturas para escuchar más</h3>
+<div class="grid">
+<div class="c"><span class="tag">Podcast</span><h3>¡Vámonos pa’l bunde! Parte 1</h3><p>Radio Nacional de Colombia, serie «Conversando los géneros». La chirimía y el bunde del Pacífico.</p><a href="https://www.radionacional.co/podcast/conversando-los-generos/vamonos-pal-bunde-parte-01">Escuchar</a></div>
+<div class="c"><span class="tag">Podcast</span><h3>¡Vámonos pa’l bunde! Parte 2</h3><p>Sigue la chirimía en el Chocó: abozao, aguabajo, bunde y porro chocoano.</p><a href="https://www.radionacional.co/podcast/conversando-los-generos/vamonos-pal-bunde-parte-02">Escuchar</a></div>
+<div class="c"><span class="tag">Artículo</span><h3>La chirimía del Chocó viene a alegrarnos</h3><p>El Universal. El álbum «Que suene el bunde» y el colectivo Chirimía Choibá.</p><a href="https://www.eluniversal.com.co/suplementos/facetas/2020/05/02/la-chirimia-del-choco-viene-a-alegrarnos/">Leer</a></div>
+<div class="c"><span class="tag">Artículo</span><h3>La chirimía, un homenaje a las raíces chocoanas</h3><p>Semana. Grupos de chirimía en Condoto y su música.</p><a href="https://www.semana.com/mejor-colombia/articulo/la-chirimia-un-homenaje-a-las-raices-chocoanas/202152/">Leer</a></div>
+<div class="c"><span class="tag">Artículo</span><h3>Chirimía en jazz</h3><p>El Espectador. Tres jóvenes chocoanos mezclan chirimía con jazz y soul.</p><a href="https://www.elespectador.com/el-magazin-cultural/chirimia-en-jazz/">Leer</a></div>
+<div class="c"><span class="tag">Estudio</span><h3>Alabaos y conflicto armado en el Chocó</h3><p>Artículo académico sobre los cantos fúnebres del Chocó (Dialnet).</p><a href="https://dialnet.unirioja.es/descarga/articulo/6205205.pdf">Leer</a></div>
+<div class="c"><span class="tag">Ritmos</span><h3>Los ritmos del Pacífico</h3><p>El País (Cali). Alabaos, bunde, currulao y más.</p><a href="https://www.elpais.com.co/cultura/este-miercoles-arranca-el-petronio-alvarez-conozca-la-diferencia-entre-ritmos-musicales.html">Leer</a></div></div></section>
+
+<section id="s14"><h2>14. Muestras culturales, festivales y más</h2>
+<div class="grid">
+<div class="c"><h3>Fiestas de San Pacho</h3><p>Se celebran en Quibdó con comparsas, música y danzas. La UNESCO las reconoció como patrimonio inmaterial en 2012.</p></div>
+<div class="c"><h3>Festival Petronio Álvarez</h3><p>Se hace en Cali y reúne la música del Pacífico, con grupos chocoanos.</p></div>
+<div class="c"><h3>Chirimías</h3><p>Bandas de flautas, clarinetes y tambores que animan las fiestas.</p></div></div></section>
+
+<section id="s15"><h2>15. Galería de fotos de muestras culturales</h2>
+<p>Toca «Ver fotos reales» en cada tarjeta para abrir fotos verdaderas en Wikimedia Commons. También puedes agregar tus propias fotos de la muestra cultural:</p>
+<p><label><b>📷 Agregar mis fotos:</b> <input type="file" id="up" accept="image/*" multiple></label></p>
+<div class="gal">
+<div class="ph" style="background:#0f6b4f"><span>🥁</span>San Pacho</div>
+<div class="ph" style="background:#d6344a"><span>💃</span>Comparsas</div>
+<div class="ph" style="background:#1b7f9e"><span>🛶</span>Río Atrato</div>
+<div class="ph" style="background:#b8860b"><span>🧺</span>Cestería</div>
+<div class="ph" style="background:#6b3fa0"><span>🎷</span>Chirimía</div>
+<div class="ph" style="background:#2e7d32"><span>🌴</span>Selva</div></div></section>
+
+<section id="juegos"><h2>🎮 Zona de juegos</h2>
+<div class="game"><h3>Juego 1: Quiz chocoano</h3><div id="quiz"></div></div>
+<div class="game"><h3>Juego 2: Memoria del Chocó</h3><p>Une cada dibujo con su nombre.</p><div class="mem" id="mem"></div><p class="fb" id="memfb"></p><button onclick="initMem()">Jugar de nuevo</button></div>
+<div class="game"><h3>Juego 3: ¿Derecho o mito?</h3><div id="vf"></div></div>
+<div class="game"><h3>Juego 4: Ahorcado chocoano</h3><div id="hm"></div></div>
+<div class="game"><h3>Juego 5: Palabras revueltas</h3><div id="sw"></div></div>
+<div class="game"><h3>Juego 6: ¿Causa o consecuencia?</h3><p>De la pobreza en el Chocó.</p><div id="cc"></div></div>
+<div class="game"><h3>Juego 7: Repite el ritmo</h3><p>Mira el orden de los tambores y repítelo.</p><div class="pads" id="sp"></div><p class="fb" id="sfb">Pulsa Empezar.</p><button onclick="sStart()">Empezar</button></div></section>
+
+<section id="s16"><h2>16. Páginas para explorar más</h2>
+<ul>
+<li><a href="https://www.dane.gov.co">DANE</a>: cifras oficiales de Colombia.</li>
+<li><a href="https://www.cepal.org">CEPAL</a>: estudios sobre afrodescendientes.</li>
+<li><a href="https://www.mincultura.gov.co">Ministerio de Cultura</a>: patrimonio y cultura.</li>
+<li><a href="https://www.banrepcultural.org">Banrepcultural</a>: libros y archivos.</li>
+<li><a href="https://ich.unesco.org/es">UNESCO Patrimonio Inmaterial</a></li>
+<li><a href="https://www.radionacional.co/podcast/conversando-los-generos/vamonos-pal-bunde-parte-01">Radio Nacional: podcast sobre el bunde</a></li>
+<li><a href="https://www.cancilleria.gov.co/sala-de-prensa/noticias/chirimias-del-pacifico-colombiano-punto-de-encuentro-de-jovenes-musicos-chocoanos-y-japoneses">Cancillería: chirimías del Pacífico</a></li>
+<li><a href="https://www.noticiasrcn.com/temas/choco">Noticias RCN: Chocó</a></li>
+<li><a href="https://repository.libertadores.edu.co/items/6e3b2ab0-e86b-4064-8305-cbb87830873d">Estudio: factores de pobreza en el Chocó</a></li></ul></section>
+
+<section id="s17"><h2>17. Referencias</h2>
+<ol class="ref">
+<li>Márquez Mejía, N. (2018). Factores de pobreza y desigualdad en el Chocó. Fundación Universitaria Los Libertadores.</li>
+<li>Otálvaro-Marín, C. A., Parra-López, C. A., &amp; Klinger-Cundumí, J. M. (2017). Injusticias sociales y territoriales en el Chocó colombiano. Revista Prospectiva, 21(2), 67–84.</li>
+<li>Astorquiza, B. (2025). La persistencia del desempleo en el Chocó. Universidad de Manizales.</li>
+<li>Pérez Rodríguez, D. M., et al. (2014). Diagnóstico situacional de salud pública en el Chocó. UNAD.</li>
+<li>CEPAL (2016). Afrodescendientes y la matriz de la desigualdad social en América Latina. Naciones Unidas.</li>
+<li>Chaves Rincón, L. C. (2019). La pobreza ignorada. Tesis, Pontificia Universidad Javeriana.</li>
+<li>Gaviria Ríos, M. A. (2013). Pobreza: ¿exclusión social o inserción precaria? Tendencias, 6(1–2), 73–96.</li>
+<li>Soler-Castillo, S., &amp; Mena, M. I. Andariegas y luchadoras. Universidad Distrital.</li>
+<li>Bonet-Morón, J. A. (2007). ¿Por qué es pobre el Chocó? Banco de la República.</li>
+<li>Congreso de Colombia (1993). Ley 70 de 1993. Congreso de Colombia (2011). Ley 1448 de 2011.</li>
+<li>Chocó 7 días (2019); DANE (2019); Proclade Colven (2018); El Tiempo (2014); Portafolio (2016).</li></ol></section>
+</main>
+<footer>Seminario de Interculturalidad y Derechos Humanos 2026 · Camila Mongui, Valentina Núñez, Laura Ríos y Emily Zuluaga</footer>
+
+<script>
+const $=s=>document.querySelector(s);
+document.querySelectorAll('a[href^="http"]').forEach(a=>{a.target="_blank";a.rel="noopener noreferrer"});
+document.addEventListener("click",e=>{const a=e.target.closest('a[href^="#"]');if(!a)return;const el=document.getElementById(a.getAttribute("href").slice(1));if(!el)return;e.preventDefault();el.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"start"})});
+const micro=[
+["La canoa","Abuela remaba al amanecer. «El río nos da todo», decía. Hoy su nieta lleva al pueblo la voz del río."],
+["El tambor","Nadie sabía quién lo tocaba de noche. Era el corazón de la selva, avisando que aún estaba vivo."],
+["Lluvia","En el Chocó llueve casi siempre. Por eso allá los sueños crecen tan verdes."],
+["La escuela","Tres horas en lancha para llegar. Luis nunca faltó: sabía que estudiar también era resistir."]];
+$("#micro").innerHTML=micro.map(m=>`<div class="c"><h3>${m[0]}</h3><button onclick="this.nextElementSibling.hidden=!this.nextElementSibling.hidden">Leer</button><p hidden>${m[1]}</p></div>`).join("");
+
+/* Tambores con WebAudio */
+let ac;function beep(f,t){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.type=t;o.frequency.setValueAtTime(f,ac.currentTime);o.frequency.exponentialRampToValueAtTime(f/2,ac.currentTime+.3);g.gain.setValueAtTime(.8,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+.35);o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+.4)}catch(e){}}
+[["Bombo",110,"#0f6b4f"],["Cununo",220,"#d6344a"],["Redoblante",330,"#1b7f9e"],["Marimba",523,"#b8860b"]].forEach(p=>{const b=document.createElement("button");b.textContent="🥁";b.title=p[0];b.setAttribute("aria-label",p[0]);b.style.background=p[2];b.onclick=()=>beep(p[1],p[0]=="Marimba"?"sine":"triangle");$("#pads").append(b)});
+
+/* Quiz */
+const Q=[
+["¿En qué región de Colombia está el Chocó?",["Pacífica","Orinoquía","Andina"],0,"El Chocó está en la costa del Pacífico."],
+["¿Cuál es la capital del Chocó?",["Cali","Quibdó","Medellín"],1,"Quibdó está a orillas del río Atrato."],
+["¿Qué ley reconoce los derechos de las comunidades negras?",["Ley 70 de 1993","Ley 1 de 2000","Ley 5 de 1950"],0,"La Ley 70 reconoce derechos étnicos y territoriales."],
+["¿Cuál es una causa de la pobreza en el Chocó?",["Exceso de carreteras","Abandono del Estado","Demasiados hospitales"],1,"Faltan vías, servicios y presencia del Estado."],
+["¿Qué fiesta de Quibdó es patrimonio de la UNESCO?",["San Pacho","Feria de las Flores","Carnaval de Barranquilla"],0,"San Pacho fue reconocida en 2012."],
+["¿Qué tejen los Wounaan con palma?",["Sombreros de lana","Canastos de werregue","Alfombras"],1,"La cestería de werregue es arte indígena del Chocó."]];
+let qi=0,qs=0;
+function showQ(){const q=Q[qi];if(!q){$("#quiz").innerHTML=`<h3>¡Terminaste! ${qs} de ${Q.length} 🎉</h3><p>${qs>=5?"¡Eres experto en el Chocó!":"¡Buen intento! Repasa la biblioteca y juega otra vez."}</p><button onclick="qi=0;qs=0;showQ()">Jugar de nuevo</button>`;return}
+$("#quiz").innerHTML=`<p><b>Pregunta ${qi+1} de ${Q.length}</b></p><p>${q[0]}</p><div class="opts">${q[1].map((o,i)=>`<button onclick="ans(${i},this)">${o}</button>`).join("")}</div><p class="fb" id="qf"></p>`}
+function ans(i,b){const q=Q[qi],bs=[...b.parentNode.children];bs.forEach(x=>x.disabled=true);bs[q[2]].classList.add("ok");if(i==q[2])qs++;else b.classList.add("no");$("#qf").innerHTML=(i==q[2]?"¡Correcto! ":"Casi. ")+q[3]+' <button onclick="qi++;showQ()">Siguiente</button>'}
+showQ();
+
+/* Memoria */
+const P=[["🥁","Tambor"],["🛶","Canoa"],["🌴","Palma"],["🌧️","Lluvia"],["🐸","Rana"],["🧺","Cesta"]];
+let first=null,lock=false,found=0;
+function initMem(){found=0;first=null;$("#memfb").textContent="";const cs=[];P.forEach((p,i)=>{cs.push({k:i,t:p[0]});cs.push({k:i,t:p[1],w:1})});cs.sort(()=>Math.random()-.5);
+$("#mem").innerHTML="";cs.forEach(c=>{const b=document.createElement("button");b.className="mc";b.textContent="?";b.setAttribute("aria-label","Carta");b.onclick=()=>flip(b,c);$("#mem").append(b)})}
+function flip(b,c){if(lock||b.classList.contains("up")||b.classList.contains("done"))return;b.classList.add("up");b.innerHTML=c.w?`<small>${c.t}</small>`:c.t;
+if(!first){first={b,c};return}
+if(first.c.k==c.k){first.b.className=b.className="mc done";first=null;if(++found==P.length)$("#memfb").textContent="¡Las encontraste todas! 🎉"}
+else{lock=true;const f=first;first=null;setTimeout(()=>{[f.b,b].forEach(x=>{x.className="mc";x.textContent="?"});lock=false},800)}}
+initMem();
+
+/* Derecho o mito */
+const V=[["El Chocó es pobre porque su gente no quiere trabajar.",false,"Mito. La pobreza viene de causas estructurales: abandono, conflicto y falta de vías."],
+["Todas las personas tienen derecho a la educación y la salud.",true,"Derecho. Es parte de la dignidad humana."],
+["Las comunidades afro tienen derechos colectivos sobre su territorio.",true,"Derecho. La Ley 70 de 1993 los reconoce."],
+["La cultura chocoana no aporta nada al país.",false,"Mito. Su música y literatura enriquecen a Colombia."]];
+let vi=0;
+function showV(){const v=V[vi];if(!v){$("#vf").innerHTML='<h3>¡Listo! 🌟</h3><button onclick="vi=0;showV()">Otra vez</button>';return}
+$("#vf").innerHTML=`<p>${v[0]}</p><div class="opts"><button onclick="vans(true)">✅ Derecho / Verdad</button><button onclick="vans(false)">❌ Mito</button></div><p class="fb" id="vff"></p>`}
+function vans(a){const v=V[vi];$("#vff").innerHTML=(a==v[1]?"¡Bien! ":"Piénsalo: ")+v[2]+' <button onclick="vi++;showV()">Siguiente</button>'}
+showV();
+
+/* Ahorcado */
+const HW=[["CHIRIMIA","Banda de música del Chocó"],["ATRATO","Gran río del Chocó"],["QUIBDO","Capital del Chocó"],["MARIMBA","Instrumento de madera del Pacífico"],["WERREGUE","Palma que tejen los Wounaan"],["BUNDE","Ritmo chocoano"],["CURRULAO","Baile y música del Pacífico"]];
+let hw,hg,hl;
+function initH(){hw=HW[Math.floor(Math.random()*HW.length)];hg=[];hl=6;drawH()}
+function gH(c){hg.push(c);if(!hw[0].includes(c))hl--;drawH()}
+function drawH(){const won=[...hw[0]].every(c=>hg.includes(c)),lost=hl<=0;
+let h=`<p>Pista: ${hw[1]}</p><p style="font:800 2rem 'Baloo 2';letter-spacing:.25em;word-break:break-all">${[...hw[0]].map(c=>hg.includes(c)||lost?c:"_").join(" ")}</p><p>${"❤️".repeat(Math.max(hl,0))||"💔"}</p>`;
+if(won)h+='<p class="fb">¡Ganaste! 🎉</p>';else if(lost)h+=`<p class="fb">Perdiste. Era ${hw[0]}.</p>`;else h+='<div class="keys">'+[..."ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"].map(c=>`<button ${hg.includes(c)?"disabled":""} onclick="gH('${c}')">${c}</button>`).join("")+'</div>';
+$("#hm").innerHTML=h+'<button onclick="initH()">Nueva palabra</button>'}
+initH();
+
+/* Palabras revueltas */
+const SW=[["CHOCO","Departamento del Pacífico"],["ATRATO","Río grande"],["TAMBOR","Se toca con las manos"],["SELVA","Hogar de miles de animales"],["CANOA","Barca para navegar el río"],["DERECHOS","Todos los tenemos"],["PACIFICO","Océano de la región"],["MARIMBA","Instrumento de madera"]];
+let wi=0;
+function scr(w){let a;do{a=[...w].sort(()=>Math.random()-.5).join("")}while(a==w);return a}
+function showW(){const w=SW[wi];if(!w){$("#sw").innerHTML='<h3>¡Las descifraste todas! 🌟</h3><button onclick="wi=0;showW()">Otra vez</button>';return}
+$("#sw").innerHTML=`<p>Pista: ${w[1]}</p><p style="font:800 2rem 'Baloo 2';letter-spacing:.2em">${scr(w[0])}</p><input class="tx" id="wi" aria-label="Tu respuesta" autocomplete="off"> <button onclick="chkW()">Comprobar</button><p class="fb" id="wf"></p>`}
+function chkW(){const w=SW[wi],v=$("#wi").value.trim().toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");if(v==w[0]){$("#wf").innerHTML='¡Correcto! <button onclick="wi++;showW()">Siguiente</button>'}else $("#wf").textContent="Todavía no. ¡Inténtalo otra vez!"}
+showW();
+
+/* Causa o consecuencia */
+const CC=[["Abandono del Estado",0],["Falta de agua potable",1],["Corrupción",0],["Pocos hospitales y médicos",1],["Discriminación histórica",0],["Desempleo e informalidad",1],["Vías en mal estado",0],["Niños que no pueden ir a la escuela",1]];
+let ci=0,cs=0;
+function showC(){const c=CC[ci];if(!c){$("#cc").innerHTML=`<h3>${cs} de ${CC.length} 🎉</h3><button onclick="ci=0;cs=0;showC()">Jugar de nuevo</button>`;return}
+$("#cc").innerHTML=`<p><b>${c[0]}</b></p><div class="opts"><button onclick="ansC(0)">🔍 Causa</button><button onclick="ansC(1)">📉 Consecuencia</button></div><p class="fb" id="cf"></p>`}
+function ansC(a){const c=CC[ci],ok=a==c[1];if(ok)cs++;$("#cf").innerHTML=(ok?"¡Bien! ":"No exactamente. ")+(c[1]?"Es una consecuencia de la pobreza.":"Es una causa de la pobreza.")+' <button onclick="ci++;showC()">Siguiente</button>'}
+showC();
+
+/* Repite el ritmo */
+const SC=["#0f6b4f","#d6344a","#1b7f9e","#b8860b"],SF=[110,220,330,523];
+let sq=[],sp=0,sl=true;
+SC.forEach((c,i)=>{const b=document.createElement("button");b.textContent="🥁";b.style.background=c;b.setAttribute("aria-label","Tambor "+(i+1));b.onclick=()=>sTap(i);$("#sp").append(b)});
+function sFlash(i){const b=$("#sp").children[i];b.style.opacity=.35;beep(SF[i],"triangle");setTimeout(()=>b.style.opacity=1,300)}
+function sPlay(){sl=true;sp=0;$("#sfb").textContent="Escucha… nivel "+sq.length;sq.forEach((v,k)=>setTimeout(()=>sFlash(v),700*(k+1)));setTimeout(()=>{sl=false;$("#sfb").textContent="¡Tu turno!"},700*sq.length+400)}
+function sNext(){sq.push(Math.floor(Math.random()*4));sPlay()}
+function sStart(){sq=[];sNext()}
+function sTap(i){if(sl)return;sFlash(i);if(i!=sq[sp]){$("#sfb").textContent="¡Ups! Llegaste al nivel "+sq.length+". Pulsa Empezar para intentarlo de nuevo.";sl=true;sq=[];return}if(++sp==sq.length){sl=true;$("#sfb").textContent="¡Bien! Siguiente nivel…";setTimeout(sNext,900)}}
+
+/* Galería: fotos reales */
+document.querySelectorAll(".ph").forEach(p=>{const t=p.lastChild.textContent.trim();const a=document.createElement("a");a.textContent="Ver fotos reales";a.target="_blank";a.rel="noopener noreferrer";a.href="https://commons.wikimedia.org/w/index.php?search="+encodeURIComponent(t+" Chocó")+"&ns6=1&ns0=1";p.append(a)});
+$("#up").onchange=e=>[...e.target.files].forEach(f=>{const r=new FileReader();r.onload=()=>{const i=document.createElement("img");i.src=r.result;i.alt="Foto agregada: "+f.name;document.querySelector(".gal").prepend(i)};r.readAsDataURL(f)});
+</script>
+<div class="beta" role="group" aria-label="Elegir diseño"><button data-b="1">Beta 1 · Selva</button><button data-b="2">Beta 2 · Noche</button><button data-b="3">Beta 3 · Arena</button></div>
+<script>
+(function(){var R=document.documentElement,K='bib-beta';
+function set(n){R.setAttribute('data-beta',n);document.querySelectorAll('.beta button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.b==n)});try{localStorage.setItem(K,n)}catch(e){}}
+var s='1';try{s=localStorage.getItem(K)||'1'}catch(e){}
+var q=(location.hash.match(/^#beta([123])$/)||[])[1];set(q||s);
+document.querySelectorAll('.beta button').forEach(function(b){b.onclick=function(){set(b.dataset.b)}});
+document.addEventListener('keydown',function(e){if(/INPUT|TEXTAREA/.test(e.target.tagName))return;if('123'.indexOf(e.key)>-1&&e.key)set(e.key)});
+document.querySelectorAll('img[data-from]').forEach(function(i){var o=document.querySelector('#evg img[data-k="'+i.dataset.from+'"]');if(o)i.src=o.src});
+return;var d=0;
+document.querySelectorAll('#evg figure').forEach(function(f){f.tabIndex=0;var go=function(){d.querySelector('img').src=f.querySelector('img').src;d.querySelector('p').textContent=f.querySelector('figcaption').textContent;d.showModal()};f.onclick=go;f.onkeydown=function(e){if(e.key=='Enter')go()}});
+d.onclick=function(e){if(e.target!=d.querySelector('img'))d.close()};
+})();
+</script>
+</body>
+</html>
